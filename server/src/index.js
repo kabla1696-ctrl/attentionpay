@@ -5,60 +5,159 @@ const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const { v4: uuidv4 } = require('uuid');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Database
+// ==================== DATABASE ====================
 const adapter = new FileSync(path.join(__dirname, '../db.json'));
 const db = low(adapter);
-db.defaults({ users: [], earnings: [], withdrawals: [], ads: [] }).write();
 
+db.defaults({
+    users: [],
+    earnings: [],
+    withdrawals: [],
+    adminStats: { totalRevenue: 0, totalWithdrawn: 0, totalAdsWatched: 0 }
+}).write();
+
+const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve web files
 app.use(express.static(path.join(__dirname, '../../web')));
 
 // ==================== AUTH ====================
 app.post('/api/auth/google', (req, res) => {
     const { googleId, name, email, avatar } = req.body;
+    if (!googleId || !email) {
+        return res.status(400).json({ error: 'Google ID and email required' });
+    }
+
     let user = db.get('users').find({ googleId }).value();
     if (!user) {
-        user = { id: uuidv4(), googleId, name, email, avatar, joinedAt: new Date().toISOString(), walletAddress: '' };
+        user = {
+            id: uuidv4(),
+            googleId,
+            name,
+            email,
+            avatar,
+            walletAddress: '',
+            joinedAt: new Date().toISOString(),
+            level: 1,
+            streak: 0,
+            lastLogin: new Date().toISOString(),
+            adsWatched: 0,
+            totalEarned: 0
+        };
         db.get('users').push(user).write();
+    } else {
+        const lastLogin = new Date(user.lastLogin);
+        const now = new Date();
+        const diffDays = Math.floor((now - lastLogin) / (1000 * 60 * 60 * 24));
+        if (diffDays === 1) {
+            user.streak = (user.streak || 0) + 1;
+        } else if (diffDays > 1) {
+            user.streak = 1;
+        }
+        user.lastLogin = now.toISOString();
+        db.get('users').find({ id: user.id }).assign(user).write();
     }
+
     res.json({ success: true, user });
 });
 
 // ==================== EARNINGS ====================
 app.post('/api/earn', (req, res) => {
     const { userId, type, amount, desc, icon } = req.body;
-    const entry = { id: uuidv4(), userId, type, amount, desc, icon, time: new Date().toISOString() };
-    db.get('earnings').push(entry).write();
-    const userEarnings = db.get('earnings').filter({ userId }).value();
-    const total = userEarnings.reduce((s, e) => s + e.amount, 0);
-    const today = new Date().toISOString().split('T')[0];
-    const todayTotal = userEarnings.filter(e => e.time.startsWith(today)).reduce((s, e) => s + e.amount, 0);
-    res.json({ success: true, entry, total, today: todayTotal, adsWatched: userEarnings.length });
+    if (!userId || !amount) {
+        return res.status(400).json({ error: 'userId and amount required' });
+    }
+
+    const earning = {
+        id: uuidv4(),
+        userId,
+        type: type || 'unknown',
+        amount: parseFloat(amount),
+        desc: desc || '',
+        icon: icon || '💰',
+        createdAt: new Date().toISOString()
+    };
+
+    db.get('earnings').push(earning).write();
+
+    const user = db.get('users').find({ id: userId }).value();
+    if (user) {
+        user.totalEarned = (user.totalEarned || 0) + earning.amount;
+        user.adsWatched = (user.adsWatched || 0) + 1;
+        user.level = Math.floor(user.adsWatched / 50) + 1;
+        db.get('users').find({ id: userId }).assign(user).write();
+    }
+
+    const stats = db.get('adminStats').value();
+    stats.totalRevenue += earning.amount;
+    stats.totalAdsWatched += 1;
+    db.get('adminStats').assign(stats).write();
+
+    res.json({ success: true, earning });
 });
 
 app.get('/api/earnings/:userId', (req, res) => {
     const earnings = db.get('earnings').filter({ userId: req.params.userId }).value();
-    const total = earnings.reduce((s, e) => s + e.amount, 0);
+    const total = earnings.reduce((sum, e) => sum + e.amount, 0);
     const today = new Date().toISOString().split('T')[0];
-    const todayTotal = earnings.filter(e => e.time.startsWith(today)).reduce((s, e) => s + e.amount, 0);
-    res.json({ earnings, total, today: todayTotal, adsWatched: earnings.length });
+    const todayTotal = earnings
+        .filter(e => e.createdAt && e.createdAt.startsWith(today))
+        .reduce((sum, e) => sum + e.amount, 0);
+
+    res.json({ earnings, total, today: todayTotal, count: earnings.length });
 });
 
 // ==================== WITHDRAWALS ====================
 app.post('/api/withdraw', (req, res) => {
     const { userId, address, amount } = req.body;
-    if (!address || !address.startsWith('0x')) return res.json({ success: false, error: 'Invalid address' });
-    if (!amount || amount < 1) return res.json({ success: false, error: 'Min $1' });
+    if (!userId || !address || !amount) {
+        return res.status(400).json({ error: 'userId, address, and amount required' });
+    }
+
+    if (!address.startsWith('0x')) {
+        return res.status(400).json({ error: 'Invalid Base chain address' });
+    }
+
+    const parsedAmount = parseFloat(amount);
+    if (parsedAmount < 1) {
+        return res.status(400).json({ error: 'Minimum withdrawal is $1' });
+    }
+
     const userEarnings = db.get('earnings').filter({ userId }).value();
-    const total = userEarnings.reduce((s, e) => s + e.amount, 0);
-    const withdrawn = db.get('withdrawals').filter({ userId }).value().reduce((s, w) => s + w.amount, 0);
-    if (total - withdrawn < amount) return res.json({ success: false, error: 'Insufficient balance' });
-    const withdrawal = { id: uuidv4(), userId, address, amount, status: 'completed', txHash: '0x' + uuidv4().replace(/-/g, ''), time: new Date().toISOString() };
+    const userWithdrawals = db.get('withdrawals').filter({ userId }).value();
+    const totalEarned = userEarnings.reduce((sum, e) => sum + e.amount, 0);
+    const totalWithdrawn = userWithdrawals.reduce((sum, w) => sum + w.amount, 0);
+    const available = totalEarned - totalWithdrawn;
+
+    if (parsedAmount > available) {
+        return res.status(400).json({ error: 'Insufficient balance' });
+    }
+
+    if (userEarnings.length < 50) {
+        return res.status(400).json({ error: 'Watch at least 50 ads to unlock withdrawals' });
+    }
+
+    const txHash = '0x' + Array.from({ length: 64 }, () => '0123456789abcdef'[Math.floor(Math.random() * 16)]).join('');
+
+    const withdrawal = {
+        id: uuidv4(),
+        userId,
+        address,
+        amount: parsedAmount,
+        txHash,
+        chain: 'base',
+        status: 'completed',
+        createdAt: new Date().toISOString()
+    };
+
     db.get('withdrawals').push(withdrawal).write();
+
+    const stats = db.get('adminStats').value();
+    stats.totalWithdrawn += parsedAmount;
+    db.get('adminStats').assign(stats).write();
+
     res.json({ success: true, withdrawal });
 });
 
@@ -70,23 +169,87 @@ app.get('/api/withdrawals/:userId', (req, res) => {
 // ==================== ADMIN ====================
 app.get('/api/admin/stats', (req, res) => {
     const users = db.get('users').value().length;
-    const earnings = db.get('earnings').value();
-    const totalRevenue = earnings.reduce((s, e) => s + e.amount, 0);
-    const withdrawals = db.get('withdrawals').value();
-    const totalWithdrawn = withdrawals.reduce((s, w) => s + w.amount, 0);
-    res.json({ users, totalRevenue, adsWatched: earnings.length, totalWithdrawn });
+    const stats = db.get('adminStats').value();
+    res.json({
+        users,
+        totalRevenue: stats.totalRevenue || 0,
+        totalWithdrawn: stats.totalWithdrawn || 0,
+        adsWatched: stats.totalAdsWatched || 0,
+        pendingWithdrawals: db.get('withdrawals').filter({ status: 'pending' }).value().length
+    });
 });
 
 app.get('/api/admin/users', (req, res) => {
-    const users = db.get('users').value().slice(-50).reverse();
+    const users = db.get('users').value().map(u => ({
+        id: u.id,
+        name: u.name,
+        email: u.email,
+        level: u.level,
+        adsWatched: u.adsWatched,
+        totalEarned: u.totalEarned,
+        joinedAt: u.joinedAt,
+        lastLogin: u.lastLogin
+    }));
     res.json({ users });
 });
 
-// Serve SPA
+app.get('/api/admin/withdrawals', (req, res) => {
+    const withdrawals = db.get('withdrawals').value();
+    res.json({ withdrawals });
+});
+
+// ==================== LEADERBOARD ====================
+app.get('/api/leaderboard', (req, res) => {
+    const users = db.get('users')
+        .sortBy('totalEarned')
+        .reverse()
+        .take(100)
+        .value()
+        .map((u, i) => ({
+            rank: i + 1,
+            name: u.name,
+            avatar: u.avatar,
+            totalEarned: u.totalEarned || 0,
+            adsWatched: u.adsWatched || 0,
+            level: u.level || 1
+        }));
+    res.json({ leaderboard: users });
+});
+
+// ==================== SURVEY CALLBACKS ====================
+app.post('/api/survey/callback', (req, res) => {
+    const { userId, surveyId, reward, status } = req.body;
+    if (status === 'completed' && reward > 0) {
+        const earning = {
+            id: uuidv4(),
+            userId,
+            type: 'survey',
+            amount: parseFloat(reward),
+            desc: `Survey ${surveyId} completed`,
+            icon: '📝',
+            createdAt: new Date().toISOString()
+        };
+        db.get('earnings').push(earning).write();
+
+        const user = db.get('users').find({ id: userId }).value();
+        if (user) {
+            user.totalEarned = (user.totalEarned || 0) + earning.amount;
+            user.adsWatched = (user.adsWatched || 0) + 1;
+            db.get('users').find({ id: userId }).assign(user).write();
+        }
+        res.json({ success: true });
+    } else {
+        res.json({ success: false });
+    }
+});
+
+// ==================== CATCH ALL ====================
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../web/index.html'));
 });
 
+// ==================== START ====================
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`AttentionPay server running on port ${PORT}`);
+    console.log(`🚀 AttentionPay server running on port ${PORT}`);
 });
