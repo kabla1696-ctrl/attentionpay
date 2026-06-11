@@ -508,7 +508,29 @@ function renderVideoQueue() {
     const player = document.getElementById('video-player');
     player.style.display = 'none';
     container.style.display = 'grid';
-    container.innerHTML = VIDEO_ADS.map((ad, i) => `
+    
+    // Mix hardcoded + dynamically loaded ads
+    // Users always see ads — even if one network is empty, others fill in
+    let allAds = [...VIDEO_ADS];
+    
+    // Add random ads from other categories as "sponsored video" ads
+    const sponsoredAds = [
+        { brand: 'Crypto.com', text: 'Buy crypto with 0% fees!', reward: 0.02, duration: 15, icon: '💳', url: 'https://crypto.com/', type: 'sponsored' },
+        { brand: 'Binance P2P', text: 'Trade crypto peer-to-peer!', reward: 0.02, duration: 20, icon: '🟡', url: 'https://p2p.binance.com/', type: 'sponsored' },
+        { brand: 'Coinbase Card', text: 'Spend crypto anywhere!', reward: 0.03, duration: 25, icon: '💳', url: 'https://card.coinbase.com/', type: 'sponsored' },
+        { brand: 'Ledger', text: 'Secure your crypto assets!', reward: 0.03, duration: 30, icon: '🔐', url: 'https://ledger.com/', type: 'sponsored' },
+        { brand: 'Crypto.com Pay', text: 'Pay with crypto!', reward: 0.02, duration: 15, icon: '💰', url: 'https://pay.crypto.com/', type: 'sponsored' },
+        { brand: 'Binance NFT', text: 'Buy & sell NFTs!', reward: 0.02, duration: 20, icon: '🎨', url: 'https://nft.binance.com/', type: 'sponsored' },
+        { brand: 'Coinbase Learning', text: 'Learn & earn crypto!', reward: 0.03, duration: 25, icon: '📚', url: 'https://learn.coinbase.com/', type: 'sponsored' },
+        { brand: 'Trust Wallet Token', text: 'TWT rewards!', reward: 0.02, duration: 15, icon: '🛡️', url: 'https://trustwallet.com/', type: 'sponsored' },
+    ];
+    
+    allAds = allAds.concat(sponsoredAds);
+    
+    // Shuffle for variety
+    allAds.sort(() => Math.random() - 0.5);
+    
+    container.innerHTML = allAds.map((ad, i) => `
         <div class="ad-queue-item" onclick="startVideoAd(${i})">
             <span class="ad-queue-icon">${ad.icon}</span>
             <div class="ad-queue-info">
@@ -518,10 +540,14 @@ function renderVideoQueue() {
             <span class="ad-queue-reward">+$${ad.reward.toFixed(2)}</span>
         </div>
     `).join('');
+    
+    // Store all ads for playback
+    window._currentVideoAds = allAds;
 }
 
 function startVideoAd(index) {
-    const ad = VIDEO_ADS[index];
+    const allAds = window._currentVideoAds || VIDEO_ADS;
+    const ad = allAds[index];
     const queue = document.getElementById('video-queue');
     const player = document.getElementById('video-player');
     queue.style.display = 'none';
@@ -562,12 +588,20 @@ function completeVideoAd(ad) {
     showToast(`+$${ad.reward.toFixed(2)} earned from ${ad.brand}! 💰`);
     // Open URL in new tab (real ad click)
     if (ad.url) window.open(ad.url, '_blank');
-    setTimeout(() => renderVideoQueue(), 1500);
+    // Auto-load next ad after 1.5 seconds (unlimited flow!)
+    setTimeout(() => {
+        // Reload with fresh shuffled ads for variety
+        renderVideoQueue();
+    }, 1500);
 }
 
 // ==================== BANNER ADS (REAL) ====================
 function renderBanners() {
-    document.getElementById('banner-grid').innerHTML = BANNER_ADS.map((ad, i) => `
+    // Shuffle banners each time for variety
+    let allBanners = [...BANNER_ADS];
+    allBanners.sort(() => Math.random() - 0.5);
+    
+    document.getElementById('banner-grid').innerHTML = allBanners.map((ad, i) => `
         <div class="banner-card" onclick="completeBanner(${i})">
             <div class="banner-ad">
                 <span style="font-size:3rem">${ad.icon}</span>
@@ -577,10 +611,13 @@ function renderBanners() {
             <span class="banner-earn">+$${ad.reward.toFixed(4)} per view</span>
         </div>
     `).join('');
+    
+    window._currentBanners = allBanners;
 }
 
 function completeBanner(index) {
-    const ad = BANNER_ADS[index];
+    const allBanners = window._currentBanners || BANNER_ADS;
+    const ad = allBanners[index];
     earnings.total += ad.reward;
     earnings.today += ad.reward;
     earnings.adsWatched++;
