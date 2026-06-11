@@ -243,6 +243,11 @@ app.post('/api/survey/callback', (req, res) => {
     }
 });
 
+// ==================== HILLTOPADS VERIFICATION ====================
+app.get('/d37dac8e7052fc858527.txt', (req, res) => {
+    res.type('text/plain').send('d37dac8e7052fc858527');
+});
+
 // ==================== CATCH ALL ====================
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../web/index.html'));
