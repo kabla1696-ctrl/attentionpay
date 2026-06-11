@@ -139,13 +139,14 @@ const APP_INSTALLS = [
 
 // ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getItem('attentionpay_user');
-    if (saved) {
-        currentUser = JSON.parse(saved);
-        loadUserData();
-        switchPage('app');
+    // Check if this is an OAuth callback (token in URL)
+    const hash = window.location.hash;
+    if (hash.includes('access_token')) {
+        // OAuth callback — handleOAuthCallback IIFE will process it
+        return;
     }
-    // Inject Google AdSense
+    // Clear any old session — user must re-login via Google each time
+    localStorage.removeItem('attentionpay_user');
     injectAdSense();
 });
 
@@ -171,8 +172,13 @@ function injectAdSense() {
 }
 
 // ==================== NAVIGATION ====================
-function showLanding() { switchPage('landing'); }
-function showLogin() { switchPage('login'); }
+function showLanding() {
+    switchPage('landing');
+}
+function showLogin() {
+    // Don't auto-login — always show login page first
+    switchPage('login');
+}
 
 function switchPage(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
