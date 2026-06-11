@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AttentionPay — Get Paid to Watch Ads</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+</head>
+<body>
+
+<!-- ==================== LANDING PAGE ==================== -->
+<div id="landing-page" class="page active">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">💰</span>
+            <span class="brand-text">AttentionPay</span>
+        </div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#earnings">Earnings</a>
+            <button class="btn btn-primary" onclick="showLogin()">Get Started</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-badge">🌍 Global • 💵 USDC • ⚡ Instant Payout</div>
+            <h1>Get Paid to<br><span class="gradient-text">Watch Ads</span></h1>
+            <p class="hero-subtitle">Your attention is worth money. Stop giving it away for free.<br>Watch ads, earn USDC on Base chain — withdraw anytime, zero fees.</p>
+            <div class="hero-cta">
+                <button class="btn btn-giant" onclick="showLogin()">
+                    <span>🚀</span> Start Earning Now
+                </button>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="stat-users">12,847</span>
+                        <span class="stat-label">Active Users</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="stat-paid">$284,391</span>
+                        <span class="stat-label">Total Paid Out</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">$1-15</span>
+                        <span class="stat-label">Daily Earning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card card-1">📺 Video Ad → +$0.03</div>
+            <div class="floating-card card-2">📱 App Install → +$1.00</div>
+            <div class="floating-card card-3">🔗 Crypto Signup → +$5.00</div>
+            <div class="floating-card card-4">📝 Survey → +$0.50</div>
+            <div class="floating-card card-5">💰 USDC Withdrawal ✓</div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2>Why <span class="gradient-text">AttentionPay</span>?</h2>
+        <p class="section-subtitle">The world's first platform that pays YOU for your attention</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">♾️</div>
+                <h3>Unlimited Ads</h3>
+                <p>Watch as many ads as you want. No caps, no limits. The more you watch, the more you earn.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Withdrawal</h3>
+                <p>Withdraw USDC on Base chain instantly. Zero fees. Smart contract powered — no middleman.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>Decentralized</h3>
+                <p>Smart contract auto-payout. No one can freeze your funds. Your money, your control.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>All Devices</h3>
+                <p>Works on mobile, tablet, and desktop. Watch ads anywhere, anytime.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>Global Platform</h3>
+                <p>Available worldwide. No country restrictions. Anyone, anywhere can earn.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Detailed Analytics</h3>
+                <p>Track every cent you earn. Daily, weekly, monthly charts. Per-ad breakdowns.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <h2>How It <span class="gradient-text">Works</span></h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Sign Up</h3>
+                <p>Login with Google. Takes 10 seconds. No forms, no phone numbers.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Watch Ads</h3>
+                <p>Browse through Video, Banner, Survey, App Install, and Crypto Signup ads.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Earn USDC</h3>
+                <p>Every ad you watch earns real USDC. Balance shows instantly on your dashboard.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Withdraw</h3>
+                <p>After 50 ads, withdraw anytime. USDC sent directly to your Base wallet. Zero fees.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Earnings Table -->
+    <section class="earnings-section" id="earnings">
+        <h2>How Much Can You <span class="gradient-text">Earn</span>?</h2>
+        <div class="earnings-table">
+            <div class="earn-row header">
+                <div>Ad Type</div>
+                <div>Earning per Ad</div>
+                <div>Example</div>
+            </div>
+            <div class="earn-row">
+                <div>📺 Video Ads (30s)</div>
+                <div>$0.01 - $0.05</div>
+                <div>100 videos = $1-5</div>
+            </div>
+            <div class="earn-row">
+                <div>📰 Banner Ads</div>
+                <div>$0.001 - $0.005</div>
+                <div>500 views = $0.50-2.50</div>
+            </div>
+            <div class="earn-row">
+                <div>📱 App Install</div>
+                <div>$0.50 - $5.00</div>
+                <div>5 installs = $2.50-25</div>
+            </div>
+            <div class="earn-row">
+                <div>📝 Surveys</div>
+                <div>$0.20 - $2.00</div>
+                <div>3 surveys = $0.60-6</div>
+            </div>
+            <div class="earn-row">
+                <div>🔗 Crypto Signups</div>
+                <div>$2.00 - $10.00</div>
+                <div>2 signups = $4-20</div>
+            </div>
+            <div class="earn-row highlight">
+                <div>💰 <strong>Daily Total</strong></div>
+                <div><strong>$1 - $15+</strong></div>
+                <div><strong>$30 - $450/month</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-brand">
+            <span class="brand-icon">💰</span> AttentionPay
+        </div>
+        <p>Get paid for your attention. Powered by Base chain USDC.</p>
+        <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Support</a>
+        </div>
+    </footer>
+</div>
+
+<!-- ==================== LOGIN PAGE ==================== -->
+<div id="login-page" class="page">
+    <div class="login-container">
+        <div class="login-card glass">
+            <button class="back-btn" onclick="showLanding()">← Back</button>
+            <div class="login-logo">💰</div>
+            <h2>Welcome to <span class="gradient-text">AttentionPay</span></h2>
+            <p>Sign in with Google to start earning</p>
+            <button class="btn btn-google" onclick="googleLogin()">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Continue with Google
+            </button>
+            <div class="login-note">
+                🔒 No password needed. No phone number.<br>
+                Your Google account = your identity.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== APP DASHBOARD ==================== -->
+<div id="app-page" class="page">
+    <!-- Top Bar -->
+    <div class="app-topbar">
+        <div class="topbar-brand">
+            <span>💰</span> AttentionPay
+        </div>
+        <div class="topbar-user">
+            <span class="user-balance" id="user-balance">$0.00</span>
+            <span class="user-name" id="user-name">User</span>
+            <button class="btn btn-sm" onclick="showWithdraw()">💸 Withdraw</button>
+        </div>
+    </div>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a class="nav-item active" data-tab="dashboard" onclick="switchTab('dashboard')">
+                    <span>📊</span> Dashboard
+                </a>
+                <a class="nav-item" data-tab="ads" onclick="switchTab('ads')">
+                    <span>📺</span> Watch Ads
+                </a>
+                <a class="nav-item" data-tab="video" onclick="switchTab('video')">
+                    <span>🎬</span> Video Ads
+                </a>
+                <a class="nav-item" data-tab="banner" onclick="switchTab('banner')">
+                    <span>📰</span> Banner Ads
+                </a>
+                <a class="nav-item" data-tab="survey" onclick="switchTab('survey')">
+                    <span>📝</span> Surveys
+                </a>
+                <a class="nav-item" data-tab="install" onclick="switchTab('install')">
+                    <span>📱</span> App Installs
+                </a>
+                <a class="nav-item" data-tab="crypto" onclick="switchTab('crypto')">
+                    <span>🔗</span> Crypto Signups
+                </a>
+                <a class="nav-item" data-tab="history" onclick="switchTab('history')">
+                    <span>📋</span> History
+                </a>
+                <a class="nav-item" data-tab="wallet" onclick="switchTab('wallet')">
+                    <span>👛</span> Wallet
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn btn-sm btn-outline" onclick="logout()">🚪 Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="tab-dashboard">
+                <h2>Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card glass">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="total-earnings">$0.00</span>
+                            <span class="stat-label">Total Earnings</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="today-earnings">$0.00</span>
+                            <span class="stat-label">Today's Earnings</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-icon">👁️</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="total-ads">0</span>
+                            <span class="stat-label">Ads Watched</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="streak-count">0</span>
+                            <span class="stat-label">Day Streak</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Earning Chart -->
+                <div class="chart-container glass">
+                    <h3>📈 Earning History</h3>
+                    <canvas id="earningsChart" height="200"></canvas>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="activity-container glass">
+                    <h3>⚡ Recent Activity</h3>
+                    <div id="recent-activity" class="activity-list">
+                        <div class="activity-empty">No activity yet. Start watching ads!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ads Overview Tab -->
+            <div class="tab-content" id="tab-ads">
+                <h2>📺 Watch Ads</h2>
+                <p class="tab-desc">Choose an ad category. The more you watch, the more you earn!</p>
+                <div class="ad-categories">
+                    <div class="ad-cat-card glass" onclick="switchTab('video')">
+                        <div class="cat-icon">🎬</div>
+                        <h3>Video Ads</h3>
+                        <p>Watch 30-60s videos</p>
+                        <span class="cat-earn">$0.01-0.05 per view</span>
+                    </div>
+                    <div class="ad-cat-card glass" onclick="switchTab('banner')">
+                        <div class="cat-icon">📰</div>
+                        <h3>Banner Ads</h3>
+                        <p>View banner displays</p>
+                        <span class="cat-earn">$0.001-0.005 per view</span>
+                    </div>
+                    <div class="ad-cat-card glass" onclick="switchTab('survey')">
+                        <div class="cat-icon">📝</div>
+                        <h3>Surveys</h3>
+                        <p>Answer questions</p>
+                        <span class="cat-earn">$0.20-2.00 per survey</span>
+                    </div>
+                    <div class="ad-cat-card glass" onclick="switchTab('install')">
+                        <div class="cat-icon">📱</div>
+                        <h3>App Installs</h3>
+                        <p>Download & try apps</p>
+                        <span class="cat-earn">$0.50-5.00 per install</span>
+                    </div>
+                    <div class="ad-cat-card glass" onclick="switchTab('crypto')">
+                        <div class="cat-icon">🔗</div>
+                        <h3>Crypto Signups</h3>
+                        <p>Register on exchanges</p>
+                        <span class="cat-earn">$2.00-10.00 per signup</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Ads Tab -->
+            <div class="tab-content" id="tab-video">
+                <h2>🎬 Video Ads</h2>
+                <p class="tab-desc">Watch short videos and earn USDC</p>
+                <div class="ad-queue" id="video-queue"></div>
+                <div class="ad-player glass" id="video-player" style="display:none;">
+                    <div class="player-header">
+                        <span class="player-timer" id="video-timer">0:30</span>
+                        <span class="player-earn" id="video-earn">+$0.03</span>
+                    </div>
+                    <div class="player-content">
+                        <div class="player-ad-display" id="video-ad-display">
+                            <div class="ad-placeholder">
+                                <span class="ad-brand" id="video-ad-brand">CryptoExchange</span>
+                                <p id="video-ad-text">Trade Bitcoin with zero fees!</p>
+                                <div class="ad-timer-bar">
+                                    <div class="ad-timer-fill" id="video-timer-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="player-footer">
+                        <button class="btn btn-primary" id="video-skip-btn" onclick="skipVideoAd()" disabled>Skip in <span id="skip-countdown">30</span>s</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner Ads Tab -->
+            <div class="tab-content" id="tab-banner">
+                <h2>📰 Banner Ads</h2>
+                <p class="tab-desc">View banners and earn instantly</p>
+                <div class="banner-grid" id="banner-grid"></div>
+            </div>
+
+            <!-- Surveys Tab -->
+            <div class="tab-content" id="tab-survey">
+                <h2>📝 Surveys</h2>
+                <p class="tab-desc">Answer questions and earn USDC</p>
+                <div class="survey-list" id="survey-list"></div>
+            </div>
+
+            <!-- App Installs Tab -->
+            <div class="tab-content" id="tab-install">
+                <h2>📱 App Installs</h2>
+                <p class="tab-desc">Download apps and earn USDC</p>
+                <div class="install-list" id="install-list"></div>
+            </div>
+
+            <!-- Crypto Signups Tab -->
+            <div class="tab-content" id="tab-crypto">
+                <h2>🔗 Crypto Signups</h2>
+                <p class="tab-desc">Register on crypto platforms and earn big</p>
+                <div class="crypto-list" id="crypto-list"></div>
+            </div>
+
+            <!-- History Tab -->
+            <div class="tab-content" id="tab-history">
+                <h2>📋 Earning History</h2>
+                <div class="history-filters">
+                    <button class="filter-btn active" onclick="filterHistory('all')">All</button>
+                    <button class="filter-btn" onclick="filterHistory('today')">Today</button>
+                    <button class="filter-btn" onclick="filterHistory('week')">This Week</button>
+                    <button class="filter-btn" onclick="filterHistory('month')">This Month</button>
+                </div>
+                <div class="history-list" id="history-list"></div>
+            </div>
+
+            <!-- Wallet Tab -->
+            <div class="tab-content" id="tab-wallet">
+                <h2>👛 Wallet</h2>
+                <div class="wallet-card glass">
+                    <div class="wallet-balance">
+                        <span class="wallet-label">Available Balance</span>
+                        <span class="wallet-amount" id="wallet-balance">$0.00</span>
+                        <span class="wallet-usdc">USDC (Base Chain)</span>
+                    </div>
+                    <div class="wallet-address" id="wallet-address">
+                        <span>Connect your Base wallet to withdraw</span>
+                    </div>
+                    <div class="wallet-actions">
+                        <button class="btn btn-giant" onclick="showWithdraw()" id="withdraw-btn" disabled>
+                            💸 Withdraw USDC
+                        </button>
+                        <p class="wallet-note" id="wallet-note">Watch at least 50 ads to unlock withdrawals</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- ==================== WITHDRAW MODAL ==================== -->
+<div id="withdraw-modal" class="modal" style="display:none;">
+    <div class="modal-content glass">
+        <div class="modal-header">
+            <h2>💸 Withdraw USDC</h2>
+            <button class="modal-close" onclick="closeWithdraw()">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="withdraw-balance">
+                <span>Available:</span>
+                <span class="withdraw-amount" id="withdraw-available">$0.00</span>
+            </div>
+            <div class="form-group">
+                <label>Wallet Address (Base Chain)</label>
+                <input type="text" id="withdraw-address" placeholder="0x..." class="form-input">
+            </div>
+            <div class="form-group">
+                <label>Amount (USDC)</label>
+                <input type="number" id="withdraw-amount" placeholder="0.00" min="1" step="0.01" class="form-input">
+                <button class="btn-link" onclick="setMaxWithdraw()">Max</button>
+            </div>
+            <div class="withdraw-info">
+                <div class="info-row">
+                    <span>Network</span><span>Base (Ethereum L2)</span>
+                </div>
+                <div class="info-row">
+                    <span>Gas Fee</span><span>FREE (Platform pays)</span>
+                </div>
+                <div class="info-row">
+                    <span>Processing</span><span>⚡ Instant (Smart Contract)</span>
+                </div>
+            </div>
+            <button class="btn btn-giant" onclick="processWithdraw()" id="confirm-withdraw">
+                ⚡ Withdraw Now
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== TOAST ==================== -->
+<div id="toast" class="toast"></div>
+
+<!-- ==================== ADMIN PANEL (HIDDEN) ==================== -->
+<div id="admin-page" class="page">
+    <div class="app-topbar">
+        <div class="topbar-brand"><span>🔧</span> Admin Panel</div>
+        <div class="topbar-user">
+            <button class="btn btn-sm" onclick="switchPage('app')">← Back to App</button>
+        </div>
+    </div>
+    <div class="admin-content">
+        <h2>Admin Dashboard</h2>
+        <div class="stats-grid">
+            <div class="stat-card glass">
+                <div class="stat-icon">👥</div>
+                <div class="stat-info">
+                    <span class="stat-value" id="admin-users">0</span>
+                    <span class="stat-label">Total Users</span>
+                </div>
+            </div>
+            <div class="stat-card glass">
+                <div class="stat-icon">💰</div>
+                <div class="stat-info">
+                    <span class="stat-value" id="admin-revenue">$0</span>
+                    <span class="stat-label">Total Revenue</span>
+                </div>
+            </div>
+            <div class="stat-card glass">
+                <div class="stat-icon">👁️</div>
+                <div class="stat-info">
+                    <span class="stat-value" id="admin-ads">0</span>
+                    <span class="stat-label">Total Ads Watched</span>
+                </div>
+            </div>
+            <div class="stat-card glass">
+                <div class="stat-icon">💸</div>
+                <div class="stat-info">
+                    <span class="stat-value" id="admin-withdrawals">$0</span>
+                    <span class="stat-label">Total Withdrawals</span>
+                </div>
+            </div>
+        </div>
+        <div class="admin-section glass">
+            <h3>Recent Users</h3>
+            <div id="admin-user-list" class="admin-list"></div>
+        </div>
+        <div class="admin-section glass">
+            <h3>Pending Withdrawals</h3>
+            <div id="admin-withdrawal-list" class="admin-list"></div>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
