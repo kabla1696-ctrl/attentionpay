@@ -95,6 +95,50 @@ const CRYPTO_SIGNUPS = [
         time: '5 min',
         category: 'exchange'
     },
+    {
+        name: 'Gate.io',
+        desc: '1400+ coins, early access to new tokens.',
+        reward: 10.00,
+        icon: '🚪',
+        url: 'https://www.gate.io/signup/ATTENTIONPAY',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + KYC + Trade',
+        time: '6 min',
+        category: 'exchange'
+    },
+    {
+        name: 'Huobi',
+        desc: 'Global crypto exchange. Trade to earn HT tokens.',
+        reward: 8.00,
+        icon: '🔵',
+        url: 'https://www.huobi.com/en-us/register/?invite_code=ATTENTIONPAY',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + KYC',
+        time: '5 min',
+        category: 'exchange'
+    },
+    {
+        name: 'Bitstamp',
+        desc: 'Europe\'s oldest exchange. Secure & regulated.',
+        reward: 15.00,
+        icon: '🔷',
+        url: 'https://www.bitstamp.net/register/',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + Verify + Trade',
+        time: '8 min',
+        category: 'exchange'
+    },
+    {
+        name: 'Gemini',
+        desc: 'Winklevoss twins\' exchange. Regulated & secure.',
+        reward: 10.00,
+        icon: '♊',
+        url: 'https://gemini.com/signup',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + Trade ($100+)',
+        time: '5 min',
+        category: 'exchange'
+    },
 ];
 
 const VIDEO_ADS = [
@@ -106,6 +150,14 @@ const VIDEO_ADS = [
     { brand: 'Chainlink', text: 'Oracle network powering smart contracts!', reward: 0.03, duration: 25, icon: '🔗', url: 'https://chain.link/', type: 'educational' },
     { brand: 'Aave', text: 'Lend & borrow crypto — DeFi!', reward: 0.04, duration: 30, icon: '👻', url: 'https://aave.com/', type: 'educational' },
     { brand: 'Compound', text: 'Earn interest on your crypto!', reward: 0.03, duration: 25, icon: '🏦', url: 'https://compound.finance/', type: 'educational' },
+    { brand: 'Crypto.com', text: 'Buy crypto with card. $25 bonus!', reward: 0.04, duration: 30, icon: '💳', url: 'https://crypto.com/', type: 'promotion' },
+    { brand: 'Polygon', text: 'Ethereum scaling solution — Low fees!', reward: 0.03, duration: 20, icon: '🟪', url: 'https://polygon.technology/', type: 'educational' },
+    { brand: 'Solana', text: 'Fastest blockchain — 65k TPS!', reward: 0.04, duration: 25, icon: '☀️', url: 'https://solana.com/', type: 'educational' },
+    { brand: 'Cardano', text: 'Research-driven blockchain!', reward: 0.03, duration: 30, icon: '🔷', url: 'https://cardano.org/', type: 'educational' },
+    { brand: 'Avalanche', text: 'Sub-second finality — Smart contracts!', reward: 0.03, duration: 25, icon: '🔺', url: 'https://avax.network/', type: 'educational' },
+    { brand: 'Polkadot', text: 'Multi-chain interoperability!', reward: 0.03, duration: 20, icon: '⚪', url: 'https://polkadot.network/', type: 'educational' },
+    { brand: 'Cosmos', text: 'Internet of Blockchains!', reward: 0.03, duration: 25, icon: '🌌', url: 'https://cosmos.network/', type: 'educational' },
+    { brand: 'Brave Browser', text: 'Privacy browser — Earn BAT tokens!', reward: 0.04, duration: 30, icon: '🦁', url: 'https://brave.com/', type: 'product' },
 ];
 
 const BANNER_ADS = [
@@ -117,6 +169,14 @@ const BANNER_ADS = [
     { brand: 'OKX', text: 'Trade. Earn. Web3.', reward: 0.003, icon: '✅', url: 'https://okx.com/', type: 'promotion' },
     { brand: 'Binance', text: 'World\'s #1 Exchange — Join now!', reward: 0.005, icon: '🟡', url: 'https://binance.com/', type: 'promotion' },
     { brand: 'Bybit', text: 'Derivatives Trading — 100x Leverage!', reward: 0.004, icon: '⚫', url: 'https://bybit.com/', type: 'promotion' },
+    { brand: 'Huobi', text: 'Global Crypto Exchange — Trade now!', reward: 0.003, icon: '🔵', url: 'https://huobi.com/', type: 'promotion' },
+    { brand: 'MEXC', text: '1500+ Tokens — Lowest fees!', reward: 0.003, icon: '🟢', url: 'https://mexc.com/', type: 'promotion' },
+    { brand: 'Bitget', text: 'Copy Trading — Follow top traders!', reward: 0.004, icon: '🔷', url: 'https://bitget.com/', type: 'promotion' },
+    { brand: 'Gemini', text: 'Regulated Crypto Exchange — Start now!', reward: 0.004, icon: '♊', url: 'https://gemini.com/', type: 'promotion' },
+    { brand: 'Coinbase', text: 'Simple crypto trading — $10 bonus!', reward: 0.005, icon: '🔵', url: 'https://coinbase.com/', type: 'promotion' },
+    { brand: 'PancakeSwap', text: 'Decentralized Exchange — Swap tokens!', reward: 0.003, icon: '🥞', url: 'https://pancakeswap.finance/', type: 'promotion' },
+    { brand: 'SushiSwap', text: 'Community-driven DEX!', reward: 0.003, icon: '🍣', url: 'https://sushi.com/', type: 'promotion' },
+    { brand: '1inch', text: 'Best DEX aggregator — Lowest prices!', reward: 0.003, icon: '🦄', url: 'https://1inch.io/', type: 'promotion' },
 ];
 
 const SURVEYS = [
@@ -126,6 +186,16 @@ const SURVEYS = [
     { title: 'Payment Preferences', desc: 'How do you pay online?', reward: 0.40, time: '4 min', questions: 10, provider: 'bitlabs', url: '#' },
     { title: 'Trading Habits', desc: 'Your crypto trading patterns', reward: 0.80, time: '6 min', questions: 12, provider: 'surveoo', url: '#' },
     { title: 'Web3 Adoption', desc: 'Are you ready for Web3?', reward: 0.60, time: '5 min', questions: 10, provider: 'bitlabs', url: '#' },
+    { title: 'Investment Profile', desc: 'How do you invest your money?', reward: 0.70, time: '5 min', questions: 12, provider: 'surveoo', url: '#' },
+    { title: 'Tech Usage Habits', desc: 'Your daily tech routine', reward: 0.35, time: '3 min', questions: 8, provider: 'bitlabs', url: '#' },
+    { title: 'Shopping Preferences', desc: 'Online vs offline shopping', reward: 0.45, time: '4 min', questions: 10, provider: 'surveoo', url: '#' },
+    { title: 'Social Media Usage', desc: 'How much time on social media?', reward: 0.25, time: '2 min', questions: 6, provider: 'bitlabs', url: '#' },
+    { title: 'Gaming Habits', desc: 'Mobile vs PC gaming?', reward: 0.55, time: '4 min', questions: 10, provider: 'surveoo', url: '#' },
+    { title: 'Crypto Staking Interest', desc: 'Would you stake your crypto?', reward: 0.90, time: '7 min', questions: 12, provider: 'surveoo', url: '#' },
+    { title: 'DeFi Lending Survey', desc: 'Have you used DeFi lending?', reward: 0.65, time: '5 min', questions: 10, provider: 'bitlabs', url: '#' },
+    { title: 'NFT Trading Survey', desc: 'Do you trade NFTs?', reward: 0.50, time: '4 min', questions: 8, provider: 'bitlabs', url: '#' },
+    { title: 'Wallet Usage Survey', desc: 'Which wallets do you use?', reward: 0.40, time: '3 min', questions: 8, provider: 'surveoo', url: '#' },
+    { title: 'Crypto Safety Survey', desc: 'How do you protect your crypto?', reward: 0.75, time: '6 min', questions: 12, provider: 'bitlabs', url: '#' },
 ];
 
 const APP_INSTALLS = [
@@ -135,6 +205,28 @@ const APP_INSTALLS = [
     { name: 'Brave Browser', desc: 'Privacy browser with crypto rewards. Switch from Chrome!', reward: 0.80, icon: '🦁', url: 'https://brave.com/', type: 'browser' },
     { name: 'Presearch', desc: 'Decentralized search engine. Earn PRE tokens.', reward: 0.60, icon: '🔍', url: 'https://presearch.com/', type: 'search' },
     { name: 'Sweat Wallet', desc: 'Move & earn crypto. Walk to earn!', reward: 0.50, icon: '👟', url: 'https://sweateconomy.com/', type: 'move' },
+    { name: 'Coinbase Wallet', desc: 'Self-custody wallet by Coinbase.', reward: 1.00, icon: '💰', url: 'https://wallet.coinbase.com/', type: 'wallet' },
+    { name: 'MetaMask', desc: 'Most popular Ethereum wallet.', reward: 0.70, icon: '🦊', url: 'https://metamask.io/', type: 'wallet' },
+    { name: 'Exodus', desc: 'Beautiful multi-coin wallet.', reward: 0.80, icon: '🚀', url: 'https://exodus.com/', type: 'wallet' },
+    { name: 'Edge Wallet', desc: 'Privacy-focused crypto wallet.', reward: 0.60, icon: '⚡', url: 'https://edge.app/', type: 'wallet' },
+    { name: 'BlueWallet', desc: 'Open-source Bitcoin wallet.', reward: 0.50, icon: '🔵', url: 'https://bluewallet.io/', type: 'wallet' },
+    { name: 'Atomic Wallet', desc: 'Multi-currency wallet with swap.', reward: 0.70, icon: '⚛️', url: 'https://atomicwallet.io/', type: 'wallet' },
+];
+
+// ==================== OFFER WALL ====================
+const OFFER_WALL = [
+    { name: 'Complete 5 Surveys', desc: 'Finish any 5 surveys to earn bonus rewards', reward: 2.00, icon: '📋', category: 'surveys', difficulty: 'Easy', time: '15 min' },
+    { name: 'Watch 20 Video Ads', desc: 'Watch 20 video ads in a row', reward: 1.50, icon: '🎬', category: 'videos', difficulty: 'Easy', time: '10 min' },
+    { name: 'Install 3 Wallets', desc: 'Download & setup 3 crypto wallets', reward: 3.00, icon: '📱', category: 'installs', difficulty: 'Medium', time: '20 min' },
+    { name: 'Sign Up 2 Exchanges', desc: 'Register on 2 crypto exchanges', reward: 4.00, icon: '🔗', category: 'crypto', difficulty: 'Medium', time: '15 min' },
+    { name: 'Daily Login Streak (7 days)', desc: 'Login 7 days in a row', reward: 5.00, icon: '🔥', category: 'streak', difficulty: 'Hard', time: '7 days' },
+    { name: 'Refer a Friend', desc: 'Get 1 friend to join AttentionPay', reward: 1.00, icon: '👥', category: 'social', difficulty: 'Easy', time: '2 min' },
+    { name: 'Complete Profile', desc: 'Fill in all profile details', reward: 0.50, icon: '👤', category: 'profile', difficulty: 'Easy', time: '3 min' },
+    { name: 'Watch 50 Banners', desc: 'View 50 banner ads', reward: 1.00, icon: '📰', category: 'banners', difficulty: 'Easy', time: '25 min' },
+    { name: 'Complete 10 Surveys', desc: 'Finish 10 surveys total', reward: 4.00, icon: '📝', category: 'surveys', difficulty: 'Medium', time: '30 min' },
+    { name: 'Install 5 Apps', desc: 'Download & try 5 apps', reward: 3.50, icon: '📲', category: 'installs', difficulty: 'Medium', time: '20 min' },
+    { name: 'Sign Up 5 Exchanges', desc: 'Register on 5 crypto exchanges', reward: 8.00, icon: '💹', category: 'crypto', difficulty: 'Hard', time: '30 min' },
+    { name: 'Reach Level 5', desc: 'Watch 250 ads to reach Level 5', reward: 10.00, icon: '⭐', category: 'level', difficulty: 'Hard', time: '2-3 hours' },
 ];
 
 // ==================== INIT ====================
@@ -196,6 +288,7 @@ function switchTab(tab) {
     if (tab === 'survey') renderSurveys();
     if (tab === 'install') renderInstalls();
     if (tab === 'crypto') renderCrypto();
+    if (tab === 'offers') renderOffers();
     if (tab === 'history') renderHistory();
     if (tab === 'wallet') updateWallet();
 }
@@ -589,6 +682,41 @@ function completeCrypto(index) {
     saveUserData();
     updateDashboard();
     showToast(`+$${c.reward.toFixed(2)} earned from ${c.name} signup! 💰 (Complete requirements to claim)`);
+}
+
+// ==================== OFFER WALL ====================
+function renderOffers() {
+    const container = document.getElementById('offers-list');
+    if (!container) return;
+    container.innerHTML = OFFER_WALL.map((o, i) => `
+        <div class="crypto-card" style="border-left:3px solid ${o.difficulty === 'Easy' ? '#00ff88' : o.difficulty === 'Medium' ? '#ffaa00' : '#ff4444'}">
+            <div class="crypto-header">
+                <span class="crypto-logo">${o.icon}</span>
+                <h4>${o.name}</h4>
+            </div>
+            <p>${o.desc}</p>
+            <div style="display:flex;gap:12px;margin:8px 0;font-size:0.8rem;color:#888;">
+                <span>⏱️ ${o.time}</span>
+                <span>📊 ${o.difficulty}</span>
+                <span>📂 ${o.category}</span>
+            </div>
+            <div class="crypto-reward">
+                <span class="crypto-amount">+$${o.reward.toFixed(2)}</span>
+                <button class="crypto-btn" onclick="completeOffer(${i})">Start Task</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function completeOffer(index) {
+    const o = OFFER_WALL[index];
+    earnings.total += o.reward;
+    earnings.today += o.reward;
+    earnings.adsWatched++;
+    history.unshift({ icon: o.icon, desc: o.name, amount: o.reward, time: new Date().toISOString(), type: 'offer' });
+    saveUserData();
+    updateDashboard();
+    showToast(`+$${o.reward.toFixed(2)} earned from ${o.name}! 🎁`);
 }
 
 // ==================== HISTORY ====================
