@@ -153,18 +153,18 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==================== GOOGLE ADSENSE ====================
 function injectAdSense() {
     // Real Google AdSense integration
-    // Replace 'ca-pub-XXXXXXXXXXXXXXXX' with your actual AdSense publisher ID
+    // Replace 'ca-pub-2717120498289241' with your actual AdSense publisher ID
     const script = document.createElement('script');
     script.async = true;
     script.crossOrigin = 'anonymous';
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX';
+    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2717120498289241';
     document.head.appendChild(script);
 
     // AdSense auto ads
     const ins = document.createElement('ins');
     ins.className = 'adsbygoogle';
     ins.style.cssText = 'display:block';
-    ins.setAttribute('data-ad-client', 'ca-pub-XXXXXXXXXXXXXXXX');
+    ins.setAttribute('data-ad-client', 'ca-pub-2717120498289241');
     ins.setAttribute('data-ad-slot', 'XXXXXXXXXX');
     ins.setAttribute('data-ad-format', 'auto');
     ins.setAttribute('data-full-width-responsive', 'true');
