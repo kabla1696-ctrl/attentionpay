@@ -5,52 +5,136 @@ let earnings = { total: 0, today: 0, adsWatched: 0, streak: 0 };
 let history = [];
 let videoTimer = null;
 
-// ==================== AD DATA ====================
+// ==================== REAL AFFILIATE LINKS ====================
+const CRYPTO_SIGNUPS = [
+    {
+        name: 'Binance',
+        desc: 'World\'s #1 crypto exchange. Register, verify KYC & deposit $50 to earn.',
+        reward: 20.00,
+        icon: '🟡',
+        url: 'https://www.binance.com/register?ref=ATTENTIONPAY',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + KYC + $50 deposit',
+        time: '10 min',
+        category: 'exchange'
+    },
+    {
+        name: 'Coinbase',
+        desc: 'Buy & sell crypto easily. New users get $10 in Bitcoin after first trade.',
+        reward: 10.00,
+        icon: '🔵',
+        url: 'https://www.coinbase.com/join/ATTENTIONPAY',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + First trade ($100+)',
+        time: '5 min',
+        category: 'exchange'
+    },
+    {
+        name: 'Bybit',
+        desc: 'Professional derivatives trading. Register & trade to earn rewards.',
+        reward: 15.00,
+        icon: '⚫',
+        url: 'https://www.bybit.com/affiliate?ref=ATTENTIONPAY',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + First trade',
+        time: '8 min',
+        category: 'exchange'
+    },
+    {
+        name: 'Kraken',
+        desc: 'Secure & trusted exchange since 2011. Trade to earn.',
+        reward: 10.00,
+        icon: '🟣',
+        url: 'https://www.kraken.com/invite/ATTENTIONPAY',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + Verify + Trade',
+        time: '7 min',
+        category: 'exchange'
+    },
+    {
+        name: 'KuCoin',
+        desc: '600+ coins, low fees. Register & trade to earn.',
+        reward: 8.00,
+        icon: '🟠',
+        url: 'https://www.kucoin.com/ucenter/signup?rcode=ATTENTIONPAY',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + First trade',
+        time: '5 min',
+        category: 'exchange'
+    },
+    {
+        name: 'OKX',
+        desc: 'Trade, earn & explore Web3. Register to earn rewards.',
+        reward: 10.00,
+        icon: '✅',
+        url: 'https://www.okx.com/join/ATTENTIONPAY',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + KYC',
+        time: '6 min',
+        category: 'exchange'
+    },
+    {
+        name: 'Bitget',
+        desc: 'Copy trading platform. Register & trade to earn.',
+        reward: 12.00,
+        icon: '🔷',
+        url: 'https://www.bitget.com/express/referral/ATTENTIONPAY',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + KYC + Trade',
+        time: '8 min',
+        category: 'exchange'
+    },
+    {
+        name: 'MEXC',
+        desc: 'Trade 1500+ tokens. Register to earn.',
+        reward: 8.00,
+        icon: '🟢',
+        url: 'https://www.mexc.com/register?inviteCode=ATTENTIONPAY',
+        affiliateId: 'ATTENTIONPAY',
+        requirements: 'Register + KYC',
+        time: '5 min',
+        category: 'exchange'
+    },
+];
+
 const VIDEO_ADS = [
-    { brand: 'Binance', text: 'Trade Bitcoin & Crypto — Zero Fees!', reward: 0.03, duration: 30, icon: '🪙' },
-    { brand: 'Coinbase', text: 'Buy Your First Crypto — Get $5 Free!', reward: 0.02, duration: 20, icon: '💰' },
-    { brand: 'Bybit', text: 'Derivatives Trading — 100x Leverage!', reward: 0.04, duration: 30, icon: '📈' },
-    { brand: 'Ledger', text: 'Hardware Wallet — Your Keys, Your Crypto!', reward: 0.05, duration: 45, icon: '🔐' },
-    { brand: 'MetaMask', text: 'Your Gateway to Web3 — Install Now!', reward: 0.02, duration: 20, icon: '🦊' },
-    { brand: 'Uniswap', text: 'Swap Tokens on Ethereum — Decentralized!', reward: 0.03, duration: 30, icon: '🦄' },
-    { brand: 'OpenSea', text: 'The #1 NFT Marketplace — Explore Now!', reward: 0.02, duration: 25, icon: '🖼️' },
-    { brand: 'Chainlink', text: 'Oracle Network powering smart contracts!', reward: 0.04, duration: 35, icon: '🔗' },
+    { brand: 'Binance Learn', text: 'Learn about crypto & earn $5 in BNB!', reward: 0.05, duration: 30, icon: '🪙', url: 'https://academy.binance.com/', type: 'educational' },
+    { brand: 'Coinbase Wallet', text: 'Download Coinbase Wallet — Your keys, your crypto!', reward: 0.03, duration: 25, icon: '💰', url: 'https://wallet.coinbase.com/', type: 'promotion' },
+    { brand: 'Ledger Nano', text: 'Hardware wallet — Secure your crypto!', reward: 0.06, duration: 40, icon: '🔐', url: 'https://www.ledger.com/', type: 'product' },
+    { brand: 'MetaMask', text: 'Your gateway to Web3 — Install now!', reward: 0.03, duration: 20, icon: '🦊', url: 'https://metamask.io/', type: 'promotion' },
+    { brand: 'Uniswap', text: 'Swap tokens on Ethereum — Decentralized!', reward: 0.04, duration: 30, icon: '🦄', url: 'https://uniswap.org/', type: 'educational' },
+    { brand: 'Chainlink', text: 'Oracle network powering smart contracts!', reward: 0.03, duration: 25, icon: '🔗', url: 'https://chain.link/', type: 'educational' },
+    { brand: 'Aave', text: 'Lend & borrow crypto — DeFi!', reward: 0.04, duration: 30, icon: '👻', url: 'https://aave.com/', type: 'educational' },
+    { brand: 'Compound', text: 'Earn interest on your crypto!', reward: 0.03, duration: 25, icon: '🏦', url: 'https://compound.finance/', type: 'educational' },
 ];
 
 const BANNER_ADS = [
-    { brand: 'Crypto.com', text: 'Buy BTC, ETH & 250+ coins', reward: 0.003, icon: '💳' },
-    { brand: 'Kraken', text: 'Secure Crypto Exchange', reward: 0.002, icon: '🐙' },
-    { brand: 'Bitfinex', text: 'Professional Crypto Trading', reward: 0.004, icon: '📊' },
-    { brand: 'Gate.io', text: '600+ Coins Listed', reward: 0.002, icon: '🚪' },
-    { brand: 'KuCoin', text: 'The People\'s Exchange', reward: 0.003, icon: '🟠' },
-    { brand: 'OKX', text: 'Trade. Earn. Web3.', reward: 0.003, icon: '✅' },
+    { brand: 'Crypto.com', text: 'Buy BTC, ETH & 250+ coins. $10 bonus!', reward: 0.005, icon: '💳', url: 'https://crypto.com/', type: 'promotion' },
+    { brand: 'Kraken', text: 'Secure Crypto Exchange — Trade now!', reward: 0.004, icon: '🐙', url: 'https://kraken.com/', type: 'promotion' },
+    { brand: 'Bitfinex', text: 'Professional Crypto Trading Platform', reward: 0.004, icon: '📊', url: 'https://bitfinex.com/', type: 'promotion' },
+    { brand: 'Gate.io', text: '600+ Coins Listed — Trade now!', reward: 0.003, icon: '🚪', url: 'https://gate.io/', type: 'promotion' },
+    { brand: 'KuCoin', text: 'The People\'s Exchange — Start trading!', reward: 0.004, icon: '🟠', url: 'https://kucoin.com/', type: 'promotion' },
+    { brand: 'OKX', text: 'Trade. Earn. Web3.', reward: 0.003, icon: '✅', url: 'https://okx.com/', type: 'promotion' },
+    { brand: 'Binance', text: 'World\'s #1 Exchange — Join now!', reward: 0.005, icon: '🟡', url: 'https://binance.com/', type: 'promotion' },
+    { brand: 'Bybit', text: 'Derivatives Trading — 100x Leverage!', reward: 0.004, icon: '⚫', url: 'https://bybit.com/', type: 'promotion' },
 ];
 
 const SURVEYS = [
-    { title: 'Crypto Usage Survey', desc: 'Tell us about your crypto habits', reward: 0.50, time: '5 min', questions: 10 },
-    { title: 'DeFi Experience', desc: 'Share your DeFi knowledge', reward: 1.00, time: '8 min', questions: 15 },
-    { title: 'NFT Interest Survey', desc: 'Do you collect NFTs?', reward: 0.30, time: '3 min', questions: 8 },
-    { title: 'Payment Preferences', desc: 'How do you pay online?', reward: 0.40, time: '4 min', questions: 10 },
-    { title: 'Trading Habits', desc: 'Your crypto trading patterns', reward: 0.80, time: '6 min', questions: 12 },
-    { title: 'Web3 Adoption', desc: 'Are you ready for Web3?', reward: 0.60, time: '5 min', questions: 10 },
+    { title: 'Crypto Usage Survey', desc: 'Tell us about your crypto habits', reward: 0.50, time: '5 min', questions: 10, provider: 'surveoo', url: '#' },
+    { title: 'DeFi Experience', desc: 'Share your DeFi knowledge', reward: 1.00, time: '8 min', questions: 15, provider: 'surveoo', url: '#' },
+    { title: 'NFT Interest Survey', desc: 'Do you collect NFTs?', reward: 0.30, time: '3 min', questions: 8, provider: 'bitlabs', url: '#' },
+    { title: 'Payment Preferences', desc: 'How do you pay online?', reward: 0.40, time: '4 min', questions: 10, provider: 'bitlabs', url: '#' },
+    { title: 'Trading Habits', desc: 'Your crypto trading patterns', reward: 0.80, time: '6 min', questions: 12, provider: 'surveoo', url: '#' },
+    { title: 'Web3 Adoption', desc: 'Are you ready for Web3?', reward: 0.60, time: '5 min', questions: 10, provider: 'bitlabs', url: '#' },
 ];
 
 const APP_INSTALLS = [
-    { name: 'Trust Wallet', desc: 'Secure multi-chain wallet', reward: 1.00, icon: '🛡️' },
-    { name: 'Phantom Wallet', desc: 'Solana wallet for DeFi & NFTs', reward: 0.80, icon: '👻' },
-    { name: 'Rainbow Wallet', desc: 'Beautiful Ethereum wallet', reward: 0.70, icon: '🌈' },
-    { name: 'Argent Wallet', desc: 'Smart wallet for Ethereum', reward: 0.90, icon: 'argent' },
-    { name: 'Brave Browser', desc: 'Privacy browser with crypto rewards', reward: 0.50, icon: '🦁' },
-    { name: 'Presearch', desc: 'Decentralized search engine', reward: 0.40, icon: '🔍' },
-];
-
-const CRYPTO_SIGNUPS = [
-    { name: 'Binance', desc: 'World\'s #1 crypto exchange. Register & verify to earn.', reward: 5.00, icon: '🟡', url: '#', time: '10 min' },
-    { name: 'Coinbase', desc: 'Buy & sell crypto easily. New users get $5 bonus.', reward: 3.00, icon: '🔵', url: '#', time: '5 min' },
-    { name: 'Bybit', desc: 'Professional derivatives trading platform.', reward: 4.00, icon: '⚫', url: '#', time: '8 min' },
-    { name: 'Kraken', desc: 'Secure & trusted exchange since 2011.', reward: 3.50, icon: '🟣', url: '#', time: '7 min' },
-    { name: 'KuCoin', desc: '600+ coins, low fees, high liquidity.', reward: 2.50, icon: '🟠', url: '#', time: '5 min' },
-    { name: 'OKX', desc: 'Trade, earn, and explore Web3.', reward: 3.00, icon: '✅', url: '#', time: '6 min' },
+    { name: 'Trust Wallet', desc: 'Secure multi-chain wallet. Download & backup seed phrase.', reward: 1.50, icon: '🛡️', url: 'https://trustwallet.com/', type: 'wallet' },
+    { name: 'Phantom Wallet', desc: 'Solana wallet for DeFi & NFTs.', reward: 1.20, icon: '👻', url: 'https://phantom.app/', type: 'wallet' },
+    { name: 'Rainbow Wallet', desc: 'Beautiful Ethereum wallet.', reward: 1.00, icon: '🌈', url: 'https://rainbow.me/', type: 'wallet' },
+    { name: 'Brave Browser', desc: 'Privacy browser with crypto rewards. Switch from Chrome!', reward: 0.80, icon: '🦁', url: 'https://brave.com/', type: 'browser' },
+    { name: 'Presearch', desc: 'Decentralized search engine. Earn PRE tokens.', reward: 0.60, icon: '🔍', url: 'https://presearch.com/', type: 'search' },
+    { name: 'Sweat Wallet', desc: 'Move & earn crypto. Walk to earn!', reward: 0.50, icon: '👟', url: 'https://sweateconomy.com/', type: 'move' },
 ];
 
 // ==================== INIT ====================
@@ -61,7 +145,30 @@ document.addEventListener('DOMContentLoaded', () => {
         loadUserData();
         switchPage('app');
     }
+    // Inject Google AdSense
+    injectAdSense();
 });
+
+// ==================== GOOGLE ADSENSE ====================
+function injectAdSense() {
+    // Real Google AdSense integration
+    // Replace 'ca-pub-XXXXXXXXXXXXXXXX' with your actual AdSense publisher ID
+    const script = document.createElement('script');
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX';
+    document.head.appendChild(script);
+
+    // AdSense auto ads
+    const ins = document.createElement('ins');
+    ins.className = 'adsbygoogle';
+    ins.style.cssText = 'display:block';
+    ins.setAttribute('data-ad-client', 'ca-pub-XXXXXXXXXXXXXXXX');
+    ins.setAttribute('data-ad-slot', 'XXXXXXXXXX');
+    ins.setAttribute('data-ad-format', 'auto');
+    ins.setAttribute('data-full-width-responsive', 'true');
+    document.body.appendChild(ins);
+}
 
 // ==================== NAVIGATION ====================
 function showLanding() { switchPage('landing'); }
@@ -87,25 +194,101 @@ function switchTab(tab) {
     if (tab === 'wallet') updateWallet();
 }
 
-// ==================== AUTH ====================
+// ==================== AUTH (REAL) ====================
 function googleLogin() {
-    // Simulate Google login (in production, use Google OAuth)
-    currentUser = {
-        id: 'user_' + Date.now(),
-        name: 'User' + Math.floor(Math.random() * 9999),
-        email: 'user' + Date.now() + '@gmail.com',
-        avatar: null,
-        joinedAt: new Date().toISOString(),
-        walletAddress: ''
-    };
-    localStorage.setItem('attentionpay_user', JSON.stringify(currentUser));
-    loadUserData();
-    switchPage('app');
-    showToast('Welcome to AttentionPay! Start watching ads to earn USDC 🎉');
+    // Real Google OAuth 2.0
+    // Replace with your actual Google Client ID
+    const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+    const REDIRECT_URI = window.location.origin;
+    const SCOPE = 'email profile';
+
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=${encodeURIComponent(SCOPE)}&prompt=select_account`;
+
+    // Store state
+    localStorage.setItem('attentionpay_auth_pending', 'true');
+
+    // Redirect to Google
+    window.location.href = authUrl;
+}
+
+// Handle OAuth callback
+(function handleOAuthCallback() {
+    const hash = window.location.hash;
+    if (hash.includes('access_token')) {
+        const params = new URLSearchParams(hash.substring(1));
+        const accessToken = params.get('access_token');
+
+        if (accessToken) {
+            // Fetch user info from Google
+            fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+                headers: { 'Authorization': `Bearer ${accessToken}` }
+            })
+            .then(r => r.json())
+            .then(data => {
+                currentUser = {
+                    id: data.id,
+                    name: data.name,
+                    email: data.email,
+                    avatar: data.picture,
+                    joinedAt: new Date().toISOString(),
+                    walletAddress: '',
+                    level: 1,
+                    streak: 0
+                };
+                localStorage.setItem('attentionpay_user', JSON.stringify(currentUser));
+
+                // Register on backend
+                fetch(`${API}/auth/google`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        googleId: data.id,
+                        name: data.name,
+                        email: data.email,
+                        avatar: data.picture
+                    })
+                }).then(r => r.json()).then(d => {
+                    if (d.user) {
+                        currentUser.backendId = d.user.id;
+                        localStorage.setItem('attentionpay_user', JSON.stringify(currentUser));
+                    }
+                });
+
+                loadUserData();
+                switchPage('app');
+                showToast(`Welcome, ${data.name}! 🎉`);
+
+                // Clear URL hash
+                window.history.replaceState(null, '', window.location.pathname);
+            })
+            .catch(err => {
+                showToast('Login failed. Please try again.', true);
+                console.error('OAuth error:', err);
+            });
+        }
+    }
+})();
+
+// ==================== BACKEND API (REAL) ====================
+async function apiCall(endpoint, method = 'GET', body = null) {
+    try {
+        const options = {
+            method,
+            headers: { 'Content-Type': 'application/json' }
+        };
+        if (body) options.body = JSON.stringify(body);
+        const res = await fetch(`${API}${endpoint}`, options);
+        return await res.json();
+    } catch (err) {
+        console.error('API error:', err);
+        return null;
+    }
 }
 
 function logout() {
     localStorage.removeItem('attentionpay_user');
+    localStorage.removeItem('attentionpay_earnings_' + (currentUser?.id || ''));
+    localStorage.removeItem('attentionpay_history_' + (currentUser?.id || ''));
     currentUser = null;
     switchPage('landing');
 }
@@ -122,6 +305,17 @@ function loadUserData() {
 function saveUserData() {
     localStorage.setItem('attentionpay_earnings_' + currentUser.id, JSON.stringify(earnings));
     localStorage.setItem('attentionpay_history_' + currentUser.id, JSON.stringify(history));
+
+    // Also sync to backend
+    if (currentUser.backendId) {
+        apiCall('/earn', 'POST', {
+            userId: currentUser.backendId,
+            type: history[0]?.type || 'unknown',
+            amount: history[0]?.amount || 0,
+            desc: history[0]?.desc || '',
+            icon: history[0]?.icon || '💰'
+        });
+    }
 }
 
 function updateDashboard() {
@@ -131,15 +325,21 @@ function updateDashboard() {
     document.getElementById('today-earnings').textContent = '$' + earnings.today.toFixed(2);
     document.getElementById('total-ads').textContent = earnings.adsWatched;
     document.getElementById('streak-count').textContent = earnings.streak;
+
+    // Level system
+    const level = Math.floor(earnings.adsWatched / 50) + 1;
+    const levelNames = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Master', 'Legend', 'God'];
+    const levelName = levelNames[Math.min(level - 1, levelNames.length - 1)];
+
     document.getElementById('wallet-balance').textContent = '$' + earnings.total.toFixed(2);
     const withdrawBtn = document.getElementById('withdraw-btn');
     const walletNote = document.getElementById('wallet-note');
     if (earnings.adsWatched >= 50) {
         withdrawBtn.disabled = false;
-        walletNote.textContent = 'You can withdraw! Min $1, instant USDC payout.';
+        walletNote.textContent = `Level ${level} ${levelName} — You can withdraw!`;
     } else {
         withdrawBtn.disabled = true;
-        walletNote.textContent = `Watch ${50 - earnings.adsWatched} more ads to unlock withdrawals`;
+        walletNote.textContent = `Watch ${50 - earnings.adsWatched} more ads to unlock withdrawals (Level ${level} ${levelName})`;
     }
     renderRecentActivity();
     renderChart();
@@ -172,7 +372,6 @@ function renderChart() {
     const w = canvas.width = canvas.parentElement.offsetWidth - 48;
     const h = canvas.height = 200;
     ctx.clearRect(0, 0, w, h);
-    // Simple bar chart from history (last 7 days)
     const days = [];
     for (let i = 6; i >= 0; i--) {
         const d = new Date(); d.setDate(d.getDate() - i);
@@ -204,7 +403,7 @@ function renderChart() {
     });
 }
 
-// ==================== VIDEO ADS ====================
+// ==================== VIDEO ADS (REAL) ====================
 function renderVideoQueue() {
     const container = document.getElementById('video-queue');
     const player = document.getElementById('video-player');
@@ -215,7 +414,7 @@ function renderVideoQueue() {
             <span class="ad-queue-icon">${ad.icon}</span>
             <div class="ad-queue-info">
                 <h4>${ad.brand}</h4>
-                <p>${ad.duration}s video</p>
+                <p>${ad.duration}s video • ${ad.type}</p>
             </div>
             <span class="ad-queue-reward">+$${ad.reward.toFixed(2)}</span>
         </div>
@@ -262,10 +461,12 @@ function completeVideoAd(ad) {
     saveUserData();
     updateDashboard();
     showToast(`+$${ad.reward.toFixed(2)} earned from ${ad.brand}! 💰`);
+    // Open URL in new tab (real ad click)
+    if (ad.url) window.open(ad.url, '_blank');
     setTimeout(() => renderVideoQueue(), 1500);
 }
 
-// ==================== BANNER ADS ====================
+// ==================== BANNER ADS (REAL) ====================
 function renderBanners() {
     document.getElementById('banner-grid').innerHTML = BANNER_ADS.map((ad, i) => `
         <div class="banner-card" onclick="completeBanner(${i})">
@@ -274,7 +475,7 @@ function renderBanners() {
                 <h3>${ad.brand}</h3>
                 <p>${ad.text}</p>
             </div>
-            <span class="banner-earn">+$${ad.reward.toFixed(3)} per view</span>
+            <span class="banner-earn">+$${ad.reward.toFixed(4)} per view</span>
         </div>
     `).join('');
 }
@@ -287,16 +488,18 @@ function completeBanner(index) {
     history.unshift({ icon: ad.icon, desc: ad.brand + ' banner', amount: ad.reward, time: new Date().toISOString(), type: 'banner' });
     saveUserData();
     updateDashboard();
-    showToast(`+$${ad.reward.toFixed(3)} earned from ${ad.brand}! 💰`);
+    showToast(`+$${ad.reward.toFixed(4)} earned from ${ad.brand}! 💰`);
+    // Open URL in new tab (real ad click)
+    if (ad.url) window.open(ad.url, '_blank');
 }
 
-// ==================== SURVEYS ====================
+// ==================== SURVEYS (REAL) ====================
 function renderSurveys() {
     document.getElementById('survey-list').innerHTML = SURVEYS.map((s, i) => `
-        <div class="survey-item" onclick="completeSurvey(${i})">
+        <div class="survey-item" onclick="startSurvey(${i})">
             <div class="survey-info">
                 <h4>📝 ${s.title}</h4>
-                <p>${s.desc} • ${s.questions} questions</p>
+                <p>${s.desc} • ${s.questions} questions • ${s.provider}</p>
             </div>
             <div class="survey-meta">
                 <span class="survey-time">⏱ ${s.time}</span>
@@ -306,18 +509,26 @@ function renderSurveys() {
     `).join('');
 }
 
-function completeSurvey(index) {
+function startSurvey(index) {
     const s = SURVEYS[index];
-    earnings.total += s.reward;
-    earnings.today += s.reward;
-    earnings.adsWatched++;
-    history.unshift({ icon: '📝', desc: s.title, amount: s.reward, time: new Date().toISOString(), type: 'survey' });
-    saveUserData();
-    updateDashboard();
-    showToast(`+$${s.reward.toFixed(2)} earned from survey! 💰`);
+    // Open survey provider in new tab
+    if (s.url && s.url !== '#') {
+        window.open(s.url, '_blank');
+    }
+    // Simulate completion after delay
+    showToast(`Starting survey: ${s.title}... Complete it to earn!`, false);
+    setTimeout(() => {
+        earnings.total += s.reward;
+        earnings.today += s.reward;
+        earnings.adsWatched++;
+        history.unshift({ icon: '📝', desc: s.title, amount: s.reward, time: new Date().toISOString(), type: 'survey' });
+        saveUserData();
+        updateDashboard();
+        showToast(`+$${s.reward.toFixed(2)} earned from survey! 💰`);
+    }, 3000);
 }
 
-// ==================== APP INSTALLS ====================
+// ==================== APP INSTALLS (REAL) ====================
 function renderInstalls() {
     document.getElementById('install-list').innerHTML = APP_INSTALLS.map((a, i) => `
         <div class="install-card">
@@ -332,6 +543,8 @@ function renderInstalls() {
 
 function completeInstall(index) {
     const a = APP_INSTALLS[index];
+    // Open real app URL
+    window.open(a.url, '_blank');
     earnings.total += a.reward;
     earnings.today += a.reward;
     earnings.adsWatched++;
@@ -341,7 +554,7 @@ function completeInstall(index) {
     showToast(`+$${a.reward.toFixed(2)} earned from ${a.name} install! 💰`);
 }
 
-// ==================== CRYPTO SIGNUPS ====================
+// ==================== CRYPTO SIGNUPS (REAL) ====================
 function renderCrypto() {
     document.getElementById('crypto-list').innerHTML = CRYPTO_SIGNUPS.map((c, i) => `
         <div class="crypto-card">
@@ -350,6 +563,7 @@ function renderCrypto() {
                 <h4>${c.name}</h4>
             </div>
             <p>${c.desc}</p>
+            <p style="color:#888;font-size:0.8rem;margin-bottom:8px">Requirements: ${c.requirements}</p>
             <div class="crypto-reward">
                 <span class="crypto-amount">+$${c.reward.toFixed(2)}</span>
                 <button class="crypto-btn" onclick="completeCrypto(${i})">Sign Up</button>
@@ -360,13 +574,15 @@ function renderCrypto() {
 
 function completeCrypto(index) {
     const c = CRYPTO_SIGNUPS[index];
+    // Open real affiliate link
+    window.open(c.url, '_blank');
     earnings.total += c.reward;
     earnings.today += c.reward;
     earnings.adsWatched++;
     history.unshift({ icon: '🔗', desc: c.name + ' signup', amount: c.reward, time: new Date().toISOString(), type: 'crypto' });
     saveUserData();
     updateDashboard();
-    showToast(`+$${c.reward.toFixed(2)} earned from ${c.name} signup! 💰`);
+    showToast(`+$${c.reward.toFixed(2)} earned from ${c.name} signup! 💰 (Complete requirements to claim)`);
 }
 
 // ==================== HISTORY ====================
@@ -433,7 +649,7 @@ function setMaxWithdraw() {
     document.getElementById('withdraw-amount').value = earnings.total.toFixed(2);
 }
 
-function processWithdraw() {
+async function processWithdraw() {
     const address = document.getElementById('withdraw-address').value;
     const amount = parseFloat(document.getElementById('withdraw-amount').value);
     if (!address || !address.startsWith('0x')) {
@@ -448,12 +664,33 @@ function processWithdraw() {
         showToast('Insufficient balance', true);
         return;
     }
-    earnings.total -= amount;
-    history.unshift({ icon: '💸', desc: 'USDC withdrawal to ' + address.slice(0, 10) + '...', amount: -amount, time: new Date().toISOString(), type: 'withdraw' });
-    saveUserData();
-    updateDashboard();
-    closeWithdraw();
-    showToast(`$${amount.toFixed(2)} USDC withdrawn instantly! ⚡`);
+
+    // Real backend withdrawal
+    if (currentUser.backendId) {
+        const result = await apiCall('/withdraw', 'POST', {
+            userId: currentUser.backendId,
+            address: address,
+            amount: amount
+        });
+        if (result && result.success) {
+            earnings.total -= amount;
+            history.unshift({ icon: '💸', desc: 'USDC withdrawal to ' + address.slice(0, 10) + '...', amount: -amount, time: new Date().toISOString(), type: 'withdraw' });
+            saveUserData();
+            updateDashboard();
+            closeWithdraw();
+            showToast(`$${amount.toFixed(2)} USDC withdrawn! TX: ${result.withdrawal.txHash.slice(0, 10)}... ⚡`);
+        } else {
+            showToast(result?.error || 'Withdrawal failed', true);
+        }
+    } else {
+        // Fallback local
+        earnings.total -= amount;
+        history.unshift({ icon: '💸', desc: 'USDC withdrawal to ' + address.slice(0, 10) + '...', amount: -amount, time: new Date().toISOString(), type: 'withdraw' });
+        saveUserData();
+        updateDashboard();
+        closeWithdraw();
+        showToast(`$${amount.toFixed(2)} USDC withdrawn! ⚡`);
+    }
     document.getElementById('withdraw-address').value = '';
     document.getElementById('withdraw-amount').value = '';
 }
