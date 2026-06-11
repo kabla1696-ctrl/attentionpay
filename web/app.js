@@ -198,7 +198,7 @@ function switchTab(tab) {
 function googleLogin() {
     // Real Google OAuth 2.0
     // Replace with your actual Google Client ID
-    const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+    const CLIENT_ID = '273416241049-og9mq50osuvo8t7fers6p2sq1md33t3d.apps.googleusercontent.com';
     const REDIRECT_URI = window.location.origin;
     const SCOPE = 'email profile';
 
