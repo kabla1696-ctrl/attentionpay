@@ -253,7 +253,7 @@ const verifyHandler = (content, type) => (req, res) => {
 
 app.get('/d37dac8e7052fc858527.txt', verifyHandler('291e473a0b3b70ab1aa8', 'text/plain'));
 app.get('/ads.txt', verifyHandler('google.com, pub-2717120498289241, DIRECT, f08c47fec0942fa0', 'text/plain'));
-app.get('/sw.js', verifyHandler(`self.options = {\n "domain": "3nbf4.com",\n "zoneId": 11134747\n}\nself.lary = ""\nimportScripts('https://3nbf4.com/act/files/service-worker.min.js?r=sw')`, 'application/javascript'));
+app.get('/sw.js', verifyHandler(`self.options = {\n "domain": "5gvci.com",\n "zoneId": 11135560\n}\nself.lary = ""\nimportScripts('https://5gvci.com/act/files/service-worker.min.js?r=sw')`, 'application/javascript'));
 
 // ==================== CATCH ALL ====================
 // Only serve index.html for paths that DON'T look like static files
