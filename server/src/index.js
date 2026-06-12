@@ -254,6 +254,7 @@ const verifyHandler = (content, type) => (req, res) => {
 app.get('/d37dac8e7052fc858527.txt', verifyHandler('291e473a0b3b70ab1aa8', 'text/plain'));
 app.get('/ads.txt', verifyHandler('google.com, pub-2717120498289241, DIRECT, f08c47fec0942fa0', 'text/plain'));
 app.get('/sw.js', verifyHandler(`self.options = {\n "domain": "5gvci.com",\n "zoneId": 11135560\n}\nself.lary = ""\nimportScripts('https://5gvci.com/act/files/service-worker.min.js?r=sw')`, 'application/javascript'));
+app.get('/pftn_d84927bc00c8a2d9a104c4674edd4e95.txt', verifyHandler('Profiton check: 8e50b903bb461865e17debc431185809', 'text/plain'));
 
 // ==================== CATCH ALL ====================
 // Only serve index.html for paths that DON'T look like static files
